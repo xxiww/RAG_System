@@ -19,8 +19,8 @@ def milvus_init():
     store = Milvus(
         embedding_function=bge_m3(),
         builtin_function=bm_25,
-        collection_name='milvus_collection',
-        connection_args={'uri':os.getenv('MILVUS_DATABASE_URL',default='http://localhost:19530')},
+        collection_name='pymilvus_collection',
+        connection_args={'uri':os.getenv('MILVUS_DATABASE_URL',default='http://localhost:19530'),'db_name':'Pymilvus'},
         vector_field=['dense','sparse'],
         text_field='text',
         primary_field='pk',
