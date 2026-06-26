@@ -45,33 +45,28 @@ def milvus_init():
 #   检索内容
     result = store.similarity_search_with_score(
         query='预测一下比特币的价格',
-        k=2
+        k=1
     )
 
     for doc, score in result:
-        print('score', score)
-        print('page_content', doc.page_content)
-        print('metadata', doc.metadata)
-
-
-
+        return {'score': score,
+                'reason': doc.metadata['source'],
+                'answer': doc.page_content
+         }
 
 def bge_m3():
     embed = OllamaEmbeddings(model='bge-m3',
                              base_url="http://localhost:11434")
     return embed
 
-
+# def dict_transform(result):
+#     doc , score = result
+#     # return {
+#     #     'score':score,
+#     #     'answer':doc.page_content,
+#     #     'reason':doc.metadata.source,
+#     # }
+#     return doc
 
 if __name__ == '__main__':
-    milvus_init()
-    # query = input("请输入您的问题!")
-    # result = store.similarity_search_with_score(
-    #     query=query,
-    #     k=2
-    # )
-    #
-    # for doc, score in result:
-    #     print('score', score)
-    #     print('page_content', doc.page_content)
-    #     print('metadata', doc.metadata)
+    print(milvus_init())
