@@ -1,5 +1,5 @@
 #### 用户请求进来之后 进行简单的意图识别
-from data.fast_data import FAST_REP
+from data.fast_data import FAST_REP,FOLLOW_UP_REP
 # 数据处理
 def data_processing(query):
     if query:
@@ -17,8 +17,13 @@ def fast_resp(query):
         return None
 ## 2.标准问答对
 
-## 3.
-
+## 3.追问
+def follow_up(history,query):
+    if len(str(query)) > 8 and history:
+        for pattern in FOLLOW_UP_REP:
+            if pattern.search(data_processing(query)):
+                return '进入追问环节'
+    return None
 
 if __name__ == '__main__':
     print(fast_resp('hi'))
